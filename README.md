@@ -51,6 +51,7 @@ dispatcher.subscribe(&fireDepartment);
 dispatcher.subscribe(&ambulance);
 dispatcher.subscribe(&police);
 dispatcher.notify("The house is on fire! And somebody is hurt!");
+// console output:
 // Fire Department is called
 // Ambulance is called
 ```
