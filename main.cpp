@@ -1,20 +1,35 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include <sstream>
 
 class CityEstablishment {
 public:
-    virtual std::string notify() {
-        return "";
+    virtual std::string notify() = 0;
+
+    virtual bool check_is_valid(std::string& sentence) {
+        std::vector<std::string> writable;
+
+        std::stringstream ss(sentence);
+        std::string item;
+        while (std::getline(ss, item, ' ')) {
+            writable.push_back(item);
+        }
+        for (const auto &word: writable) {
+            for (const auto &key_word: key_words) {
+                if (word == key_word) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+
     }
 
-    virtual std::string getword() {
-        return word;
-    }
 
 private:
-    std::string word;
+    std::vector<std::string> key_words;
 
 };
 
@@ -24,18 +39,9 @@ public:
         return "Firemen are called";
     }
 
-private:
-    std::string word = "fire";
-};
-
-class Ambulance : public CityEstablishment {
-public:
-    std::string notify() override {
-        return "Ambulance is called";
-    }
 
 private:
-    std::string word = "injury";
+    std::vector<std::string> key_words = {"fire", "burn", "flame"};
 };
 
 class Police : public CityEstablishment {
@@ -46,7 +52,17 @@ public:
 
 private:
 
-    std::string word = "crime";
+    std::vector<std::string> key_words = {"crime", "robbery", "murder"};
+};
+
+class Ambulance : public CityEstablishment {
+public:
+    std::string notify() override {
+        return "Ambulance is called";
+    }
+
+private:
+    std::vector<std::string> key_words = {"injury", "illness", "death"};
 };
 
 class Dispatcher {
@@ -59,22 +75,23 @@ public:
 
 
     std::string notify(std::string sentence) {
-        std::string final = "";
-        for (auto est: subs) {
-            auto is_in = sentence.find(est->getword());
-            if (is_in != std::string::npos) {
-                final += est->notify();
+        std::string final;
+        for (auto establishment: subs) {
+            if (establishment->check_is_valid(sentence)) {
+                final += establishment->notify();
                 final += "\n";
             }
+
+
         }
         return final;
     }
 
     void unsubscribe(CityEstablishment *establishment) {
         int counter = 0;
-        for (auto elem : subs){
+        for (auto elem: subs) {
 
-            if (elem == establishment){
+            if (elem == establishment) {
                 subs.erase(subs.begin() + counter);
             }
             counter += 1;
@@ -85,8 +102,3 @@ public:
 private:
     std::vector<CityEstablishment *> subs;
 };
-
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
-}
