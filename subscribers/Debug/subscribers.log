@@ -1,0 +1,5 @@
+﻿  Source.cpp
+C:\Users\lizap\Desktop\subscribers\subscribers\Source.cpp(54,21): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\lizap\Desktop\subscribers\subscribers\Source.cpp(57,25): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\lizap\Desktop\subscribers\subscribers\Source.cpp(63,21): warning C4018: <: несоответствие типов со знаком и без знака
+  subscribers.vcxproj -> C:\Users\lizap\Desktop\subscribers\Debug\subscribers.exe
