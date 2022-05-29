@@ -2,17 +2,18 @@
 #include <string>
 #include <vector>
 
-void speak (){
-    std::cout << " AaAAaaA";
-}
-
 class Subscribes{
 public:
     virtual void notify(std::string word_) = 0;
+    std::string  word;
     bool sub = 0;
 };
+
 class FireDepartment : public Subscribes{
     std::string word = "Fire";
+    void speak(){
+        std::cout << word << std::endl;
+    };
 public:
     void notify(std::string word_){
         if(word == word_)
@@ -21,6 +22,9 @@ public:
 };
 class Ambulance : public Subscribes{
     std::string word = "Help";
+    void speak(){
+        std::cout << word << std::endl;
+    };
 public:
     void notify(std::string word_){
         if(word == word_)
@@ -29,6 +33,9 @@ public:
 };
 class Police : public Subscribes{
     std::string word = "Kill";
+    void speak(){
+        std::cout << word << std::endl;
+    };
 public:
     void notify(std::string word_){
         if(word == word_)
@@ -88,3 +95,4 @@ int main() {
     dispatcher.notify("Fire");
     return 0;
 }
+
